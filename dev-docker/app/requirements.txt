@@ -1,0 +1,7 @@
+# 📦 Flask 백엔드용 패키지 리스트 (Docker에서 사용됨)
+flask
+flask-cors
+pymysql
+sqlalchemy
+python-dotenv
+flask_sqlalchemy
