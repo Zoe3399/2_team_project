@@ -7,14 +7,9 @@ bp = Blueprint('main', __name__)
 # 기본 경로('/')로 요청이 들어오면 'Hello from Flask!' 메시지를 반환
 @bp.route('/')
 def index():
-    return 'Flask 정상 실행 됬어요 성공했네요 축하해요!'
+    return 'Hello from Flask!'
 
-# 서버 헬스체크용 ping 엔드포인트
+# 서버 상태 확인용 라우트. 서버가 정상 작동 중인지 확인할 수 있음
 @bp.route('/ping', methods=['GET'])
 def ping():
     return {'message': 'pong!'}
-
-# db 상태체크 라우트 블루프린트 등록
-# ping_db.py에서 bp라는 이름으로 Blueprint 객체를 가져와 서브 블루프린트로 등록
-from .ping import bp as ping_Check
-bp.register_blueprint(ping_Check)
