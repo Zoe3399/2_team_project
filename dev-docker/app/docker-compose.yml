@@ -2,48 +2,44 @@
 # - MySQL 데이터베이스와 Flask 웹 서버 컨테이너 구성
 # - 개발 환경용 설정
 
-# Compose 파일 버전
 version: '3.8'
 
-# 서비스 정의 (컨테이너들 설정)
 services:
   # 데이터베이스 서비스 (MySQL)
   db:
-    # 사용할 MySQL 이미지 (버전 8.0)
-    image: mysql:8.0
-    # 컨테이너가 중지되면 항상 재시작
-    restart: always
-    # 환경변수 설정 (MySQL 초기 설정)
+    image: mysql:8.0                             # 사용할 MySQL 이미지 (버전 8.0)
+    restart: always                              # 컨테이너 중지 시 자동 재시작
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: prod_predict
-      MYSQL_USER: user
-      MYSQL_PASSWORD: uS3r_p@ss_2024 #env와 동일한 값
-      TZ: Asia/Seoul  # DB 타임존을 KST로 설정
-    # 호스트 ↔ 컨테이너 포트 매핑
+      MYSQL_ROOT_PASSWORD: root                 # 루트 계정 비밀번호
+      MYSQL_DATABASE: prod_predict              # 생성할 DB 이름
+      MYSQL_USER: user                          # 사용자 계정
+      MYSQL_PASSWORD: uS3r_p@ss_2024            # 사용자 비밀번호
+      TZ: Asia/Seoul                            # DB 타임존 설정 (한국 시간)
     ports:
-      - "3306:3306"
-    # 데이터 영속성 유지를 위한 볼륨 마운트
+      - "3306:3306"                             # 호스트 ↔ 컨테이너 포트 매핑
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql  # 초기 SQL 실행용
+      - mysql_data:/var/lib/mysql               # DB 데이터 영속성 저장
+      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql  # 초기 SQL 실행
+    healthcheck:                                # DB 헬스체크: Flask가 DB 준비 후 실행되도록
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # 웹 애플리케이션 서비스 (Flask)
   web:
-    # 현재 디렉토리에 있는 Dockerfile로 빌드
-    build: .
+    build: .                                     # 현재 디렉토리에 있는 Dockerfile로 빌드
     ports:
-      - "5001:5000" # 호스트 5050 포트를 컨테이너 5000 포트에 매핑
-    # db 서비스가 먼저 시작되어야 함
+      - "5001:5000"                              # 호스트 5001 → 컨테이너 5000 포트 매핑
     depends_on:
-      - db
-    # 환경 변수 파일 로드 (.env)
+      - db                                       # db 서비스가 먼저 실행되어야 함
     env_file:
-      - .env
+      - .env                                     # .env 파일에서 환경변수 로드
     volumes:
-      - ../app:/app  # 로컬 app 코드 변경 시 컨테이너에도 실시간 반영됨 (핫 리로드)
-    command: flask run --host=0.0.0.0  #  컨테이너 실행 시 Flask 서버 자동 실행
-    working_dir: /app  # Flask 앱 기준 경로 지정
+      - ../app:/app                              # 로컬 코드 핫리로드 가능
+    command: flask --app app.py run --host=0.0.0.0  # Flask 앱 실행 명령어
+    working_dir: /app                            # Flask 앱 기준 디렉토리
 
-# 🔄 공유 볼륨 정의 (데이터 유지 목적)
+# 공유 볼륨 정의 (데이터 유지 목적)
 volumes:
   mysql_data:

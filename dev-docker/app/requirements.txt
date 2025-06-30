@@ -1,7 +1,11 @@
 # 📦 Flask 백엔드용 패키지 리스트 (Docker에서 사용됨)
-flask
-flask-cors
-pymysql
-sqlalchemy
-python-dotenv
-flask_sqlalchemy
+flask==2.3.2                  # Flask 웹 프레임워크
+flask-cors==4.0.0             # CORS 설정을 위한 Flask 확장
+pymysql==1.1.0                # MySQL 연동용 드라이버 (SQLAlchemy에서 사용)
+sqlalchemy==2.0.30            # ORM 라이브러리
+flask_sqlalchemy==3.1.1       # Flask와 SQLAlchemy 통합
+python-dotenv==1.0.1          # .env 환경 변수 로더
+
+# (선택) 테스트/정적 분석 도구
+# pytest==7.4.0                # 유닛 테스트 프레임워크
+# black==24.3.0                # 코드 포매터
