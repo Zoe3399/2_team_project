@@ -25,9 +25,14 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    const status = err.response?.status;
+    if (status === 401) {
       alert('로그인이 필요합니다.');
       window.location.href = '/login';
+    } else if (status === 403) {
+      alert('접근 권한이 없습니다.');
+    } else if (status >= 500) {
+      alert('서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
     }
     return Promise.reject(err);
   }
