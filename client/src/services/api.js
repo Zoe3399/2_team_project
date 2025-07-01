@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from 'axios';
 
-// ✅ 기본 axios 인스턴스 설정
+// 기본 axios 인스턴스 설정
 const api = axios.create({
   baseURL: 'http://localhost:5001/api',  // 백엔드 API 서버 주소
   headers: {
@@ -9,7 +9,7 @@ const api = axios.create({
   }
 });
 
-// ✅ 요청마다 JWT 토큰 자동 삽입
+// 요청마다 JWT 토큰 자동 삽입
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -21,7 +21,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ✅ 공통 에러 처리 인터셉터
+// 공통 에러 처리 인터셉터
 api.interceptors.response.use(
   (res) => res,
   (err) => {
@@ -38,17 +38,19 @@ api.interceptors.response.use(
   }
 );
 
-// 백엔드 연결 시 사용 예정
-// 현재 임시데이터로 테스트 진행중으로 주석 처리
-// 차후 프론트 연결 시 주석 해제 필요
-// export async function fetchForecastData() {
-//   const res = await fetch(`${process.env.REACT_APP_API_URL}/api/forecast`);
-//   return res.json();
-// }
-// export async function fetchTopRegions() {
-//   const res = await fetch(`${process.env.REACT_APP_API_URL}/api/regions/top`);
-//   return res.json();
-// }
+// API 서비스 함수 정의 파일
+// (주석) 백엔드 연결 시 사용 예정
+// 현재는 임시 데이터로 테스트 중
+// 차후 프론트+백엔드 연결 시 프론트에서 주석 해제 필요
+export async function fetchForecastData() {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/api/forecast`);
+  return res.json();
+}
+
+export async function fetchTopRegions() {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/api/regions/top`);
+  return res.json();
+}
 
 // -----------------------------
 // 🔐 Auth API

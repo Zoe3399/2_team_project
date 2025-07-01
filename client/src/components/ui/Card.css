@@ -3,17 +3,17 @@
   border-radius: 28px;
   width: 100%;
   max-width: 1200px;
-  height: 75vh;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  min-height: 600px; /* 높이 고정 대신 최소 높이 설정 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   overflow: hidden;
-  margin-bottom: 100px;
+  margin: 60px auto; /* 중앙 정렬 + 상하 여백 */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .card-content {
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,14 +21,14 @@
 }
 
 .card-body {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 32px;
 }
 
 .card-graph {
-  height: 80%;
+  height: 360px;
   background-color: #e1ebed;
   border-radius: 16px;
   display: flex;
@@ -36,14 +36,16 @@
   justify-content: center;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  overflow: hidden;
 }
 
 .card-description {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.6;
   color: #222;
   align-self: flex-start;
+  white-space: pre-line; /* 줄바꿈 처리 */
 }
 
 .card-footer {
@@ -51,11 +53,15 @@
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .card-footer p {
   font-size: 16px;
   color: #666;
+  margin: 0;
+  flex: 1;
 }
 
 .card-footer button {
@@ -66,4 +72,16 @@
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.card-footer button:hover {
+  background: #333;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #111;
 }

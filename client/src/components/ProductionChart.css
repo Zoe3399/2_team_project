@@ -1,0 +1,11 @@
+.production-chart-container {
+  width: 100%;
+  background-color: transparent;
+}
+
+.chart-box {
+  background-color: #e5eff2; /* 부드러운 하늘색 */
+  border-radius: 16px;
+  padding: 16px;
+}
+
