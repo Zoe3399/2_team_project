@@ -1,0 +1,59 @@
+.banner-wrapper {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
+
+  /* 위아래 구분선 */
+  border-top: 1px solid #e5e7eb;     /* 연한 회색 */
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.banner-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* 좌우 버튼 공통 스타일 */
+.slick-prev,
+.slick-next {
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.7); /* 연한 배경 */
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.slick-prev {
+  left: 20px;
+}
+.slick-next {
+  right: 20px;
+}
+
+/* 아이콘을 가운데 정렬 */
+.slick-prev:before,
+.slick-next:before {
+  font-size: 20px;
+  color: #111;
+}
+
+/* 하단 점 네비게이션 (data) */
+/* dots 위치 조정 */
+.slick-dots {
+  bottom: 12px;
+}
+
+/* dots 스타일 조정 */
+.slick-dots li button:before {
+  font-size: 12px;
+  color: #ccc;
+  opacity: 1;
+}
+.slick-dots li.slick-active button:before {
+  color: #111;
+}
