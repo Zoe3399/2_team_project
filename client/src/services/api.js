@@ -25,13 +25,30 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    const status = err.response?.status;
+    if (status === 401) {
       alert('로그인이 필요합니다.');
       window.location.href = '/login';
+    } else if (status === 403) {
+      alert('접근 권한이 없습니다.');
+    } else if (status >= 500) {
+      alert('서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
     }
     return Promise.reject(err);
   }
 );
+
+// 백엔드 연결 시 사용 예정
+// 현재 임시데이터로 테스트 진행중으로 주석 처리
+// 차후 프론트 연결 시 주석 해제 필요
+// export async function fetchForecastData() {
+//   const res = await fetch(`${process.env.REACT_APP_API_URL}/api/forecast`);
+//   return res.json();
+// }
+// export async function fetchTopRegions() {
+//   const res = await fetch(`${process.env.REACT_APP_API_URL}/api/regions/top`);
+//   return res.json();
+// }
 
 // -----------------------------
 // 🔐 Auth API

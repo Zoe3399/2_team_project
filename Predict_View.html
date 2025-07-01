@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PowerMetric</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+    }
+    header {
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 60px;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a {
+      margin: 0 16px;
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+    }
+    .title-section {
+      background-color: #0044ff;
+      color: white;
+      text-align: center;
+      padding: 140px 20px 100px;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 20px;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 1200px;
+      height: 85vh;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      margin-bottom: 100px;
+    }
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      padding: 48px;
+    }
+    .card-body {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+    }
+    .card-description {
+      flex: 1;
+      font-size: 20px;
+      line-height: 1.6;
+      color: #222;
+    }
+    .card-graph {
+      flex: 1;
+      background-color: #e1ebed;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+    }
+    .card-footer p {
+      font-size: 16px;
+      color: #666;
+    }
+    .card-footer button {
+      padding: 12px 24px;
+      background: black;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>PowerMetric</strong></div>
+    <nav>
+      <a href="#region">지역분석</a>
+      <a href="#forecast">예측 보기</a>
+      <a href="#download">다운로드</a>
+      <a href="#mine">나의 분석</a>
+      <a href="#faq">도움말 / FAQ</a>
+      <a href="#login">로그인</a>
+      <a href="#mypage" style="background:black; color:white; padding:8px 16px; border-radius:6px;">마이페이지</a>
+    </nav>
+  </header>
+
+  <div class="title-section">
+    전력 사용량이 말하는 산업의 내일<br />
+    산업지수를 통해 예측하고 대비하세요
+  </div>
+
+  <section class="section" id="forecast">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-description">
+            #임시데이터 넣어둠, 나중에 삭제 필요<br />
+            예측 기간: 2024년 7월 ~ 2024년 12월<br />
+            모델 버전: prophet_v1, 신뢰도 평균: 91.5%<br />
+            예측 대상 지역: 서울, 경기, 부산 등 전국 17개 시도<br />
+            예측 대상 변수: 생산지수
+          </div>
+          <div class="card-graph">
+            생산지수 예측 그래프
+            <!-- 실제 DB 연동용 코드 (리액트용 주석 처리) -->
+            <!--
+              fetch('/api/forecast?region_id=1')
+                .then(res => res.json())
+                .then(data => {
+                  // 차트 라이브러리로 시각화 처리
+                });
+            -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>전망 데이터 기반 산업 전략 수립 가능</p>
+          <button>예측 상세 보기 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

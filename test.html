@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PowerMetric</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: white;
+    }
+
+    header {
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      margin: 40px auto;
+      width: 90vw;
+    }
+
+    .slider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+    }
+
+    .card {
+      flex: 0 0 80vw;
+      background: #e1ebed;
+      padding: 40px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      scroll-snap-align: start;
+    }
+
+    .card .left {
+      flex: 1;
+    }
+
+    .card .right {
+      flex: 1;
+      background: white;
+      height: 240px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      font-weight: bold;
+      border-radius: 12px;
+    }
+
+    .highlight {
+      background-color: limegreen;
+      padding: 0 4px;
+    }
+
+    .desc {
+      margin-top: 20px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .cta {
+      margin-top: 20px;
+    }
+
+    .cta button {
+      padding: 10px 20px;
+      border: 1px solid #333;
+      background: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 28px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #aaa;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div><strong>PowerMetric</strong></div>
+    <nav>
+      <a href="#region">지역분석</a>
+      <a href="#predict">예측 보기</a>
+      <a href="#download">다운로드</a>
+      <a href="#mine">나의 분석</a>
+      <a href="#faq">도움말 / FAQ</a>
+      <a href="#login">로그인</a>
+      <a href="#mypage" style="background:black; color:white; padding:6px 12px; border-radius:4px;">마이페이지</a>
+    </nav>
+  </header>
+
+  <div class="carousel-container">
+    <div class="arrow left" onclick="scrollSlider(-1)">‹</div>
+    <div class="arrow right" onclick="scrollSlider(1)">›</div>
+
+    <div class="slider" id="slider">
+      <!-- Slide 1 -->
+      <div class="card">
+        <div class="left">
+          <h2>전력 사용량이 말하는 산업의 내일</h2>
+          <h1><span class="highlight">AI 기반 산업 예측</span> 플랫폼</h1>
+          <p class="desc">
+            미래 생산지수 값을 예측하고 인사이트 제공<br>
+            예측 모델 기반으로 향후 산업지수를 미리 파악하고<br>
+            변동 가능성에 대비하세요.
+          </p>
+          <div class="cta">
+            <button>예측 보기</button>
+          </div>
+        </div>
+        <div class="right">
+          생산지수 추이 모션 그래프
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="card">
+        <div class="left">
+          <h2>지역 전력으로 보는 지역별 생산지수</h2>
+          <h1><span class="highlight">지역별 산업 지표</span> 분석</h1>
+          <p class="desc">
+            실제 과거 데이터를 기반으로 지역 산업 흐름 분석<br>
+            전력 사용 패턴과 함께 분석하여 전략적 인사이트를 도출합니다.
+          </p>
+          <div class="cta">
+            <button>지역 분석</button>
+          </div>
+        </div>
+        <div class="right">
+          지역 순위 TOP 5
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const cards = slider.querySelectorAll('.card');
+    const cardWidth = cards[0].offsetWidth + 20; // 카드 + gap
+    let index = 0;
+
+    function scrollSlider(dir) {
+      index += dir;
+      if (index < 0) index = cards.length - 1;
+      if (index >= cards.length) index = 0;
+      slider.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+    }
+
+    setInterval(() => {
+      scrollSlider(1);
+    }, 5000);
+  </script>
+
+</body>
+</html>

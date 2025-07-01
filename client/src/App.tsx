@@ -2,27 +2,36 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ResetPw from './pages/ResetPw';
 import RegionPage from './pages/RegionPage';
 import RegionDetail from './pages/RegionDetail';
 import Favorites from './pages/Favorites';
-import ResetPw from './pages/ResetPw';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Terms from './pages/Terms';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Router>
-      <Header />
       <Routes>
+        {/* 메인 */}
         <Route path="/" element={<Home />} />
+
+        {/* 인증 */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/reset" element={<ResetPw />} />
+
+        {/* 분석 */}
         <Route path="/region" element={<RegionPage />} />
-        <Route path="/detail/:regionId" element={<RegionDetail />} />
+        <Route path="/region/:id" element={<RegionDetail />} />
+
+        {/* 개인화 */}
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/terms" element={<Terms />} />
+
+        {/* 예외 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
     </Router>
   );
 }

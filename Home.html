@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PowerMetric</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+    }
+    header {
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 60px;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav a {
+      margin: 0 16px;
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+    }
+    .title-section {
+      background-color: #0044ff;
+      color: white;
+      text-align: center;
+      padding: 140px 20px 100px;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 20px;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 1200px;
+      height: 75vh;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      margin-bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+    }
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-graph {
+    height: 80%; /* 기존 45% → 65% 정도로 조정 */
+    background-color: #e1ebed;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    }
+    .card-description {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #222;
+      align-self: flex-start;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 32px;
+    }
+    .card-footer p {
+      font-size: 16px;
+      color: #666;
+    }
+    .card-footer button {
+      padding: 12px 24px;
+      background: black;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>PowerMetric</strong></div>
+    <nav>
+      <a href="#region">지역분석</a>
+      <a href="#predict">예측 보기</a>
+      <a href="#download">다운로드</a>
+      <a href="#mine">나의 분석</a>
+      <a href="#faq">도움말 / FAQ</a>
+      <a href="#login">로그인</a>
+      <a href="#mypage" style="background:black; color:white; padding:8px 16px; border-radius:6px;">마이페이지</a>
+    </nav>
+  </header>
+
+  <div class="title-section">
+   여기에는 배너가 들어갈 예정입니다. <br/>
+   글자 or 사진
+  </div>
+
+  <section class="section">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-graph">
+            생산지수 추이 모션 그래프
+          </div>
+          <div class="card-description">
+            AI 예측 모델을 활용하여 산업 생산지수 추이를 미리 분석하고<br />
+            다양한 경제지표 및 전력 소비 패턴과 결합하여<br />
+            산업 흐름의 방향성을 확인합니다.
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>예측 결과 기반 전략 수립을 위한 인사이트 제공</p>
+          <button>자세히 보기 →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-graph">
+            지역 순위 TOP 5 그래프
+          </div>
+          <div class="card-description">
+            지역별 전력 사용량 기반으로 산업별 비중과 생산성을 분석합니다.<br />
+            과거 데이터를 토대로 지역경제 흐름을 파악하고<br />
+            고효율 산업군 발굴에 활용할 수 있습니다.
+          </div>
+        </div>
+        <div class="card-footer">
+          <p>지역 특화 산업/정책 수립 지원용 분석 리포트 제공</p>
+          <button>자세히 보기 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
