@@ -1,77 +1,91 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import Header from "@/components/Header";
+import Card from "@/components/Card";
 
-export default function Home() {
-  const navigate = useNavigate();
-  const isLoggedIn = false; // TODO: 전역 상태 또는 Context 연동 예정
+// (주석) 나중에 백엔드 연결 시 사용
+// import { fetchForecastData } from "@/services/api";
+// import { useEffect, useState } from "react";
 
+// (주석) 임시 데이터 코드로 나중에 백엔드 연결할때 없애거나 주석 필요
+const forecastMockData = [
+  { date: "2024-01", value: 105 },
+  { date: "2024-02", value: 107 },
+  { date: "2024-03", value: 110 },
+  { date: "2024-04", value: 108 },
+  { date: "2024-05", value: 112 },
+];
+
+const topRegionsMock = [
+  { name: "서울", index: 128.3 },
+  { name: "부산", index: 123.1 },
+  { name: "대구", index: 119.7 },
+  { name: "인천", index: 117.5 },
+  { name: "광주", index: 115.0 },
+];
+
+const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* 상단 네비게이션 */}
-      <header className="flex justify-between items-center px-6 py-4 shadow-md bg-white sticky top-0 z-10">
-        <div className="text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>
-          제조업 예측 서비스
-        </div>
-        <div className="flex gap-4 items-center">
-          {isLoggedIn && (
-            <button onClick={() => navigate('/favorites')} className="text-sm text-blue-700 hover:underline">
-              내 즐겨찾기
-            </button>
-          )}
-          {isLoggedIn ? (
+    <>
+      <Header />
+      <section className="title-section">
+        <h1>
+          여기는 배너가 들어갈 예정입니다.
+          <br />
+          글자 or 사진
+        </h1>
+      </section>
+
+      <section className="section">
+        <Card
+          title="생산지수 추이 모션 그래프"
+          description={
             <>
-              <button className="text-sm text-gray-600 hover:underline">내 정보</button>
-              <button className="text-sm text-red-500 hover:underline">로그아웃</button>
+              AI 예측 모델을 활용하여 산업 생산지수 추이를 미리 분석하고<br />
+              다양한 경제지표 및 전력 소비 패턴과 결합하여<br />
+              산업 흐름의 방향성을 확인합니다.
             </>
-          ) : (
+          }
+          detail="예측 결과 기반 전략 수립을 위한 인사이트 제공"
+          buttonText="자세히 보기 →"
+          link="/forecast"
+          graphContent={
+            <div style={{ width: "100%", height: "100%" }}>
+              <h3>예측 그래프</h3>
+              <ul>
+                {forecastMockData.map((d, i) => (
+                  <li key={i}>{d.date}: {d.value}</li>
+                ))}
+              </ul>
+            </div>
+          }
+        />
+
+        <Card
+          title="지역 순위 TOP 5 그래프"
+          description={
             <>
-              <button onClick={() => navigate('/login')} className="text-sm text-blue-600 hover:underline">
-                로그인
-              </button>
-              <button onClick={() => navigate('/signup')} className="text-sm text-blue-600 hover:underline">
-                회원가입
-              </button>
+              지역별 전력 사용량 기반으로 산업별 비중과 생산성을 분석합니다.<br />
+              과거 데이터를 토대로 지역경제 흐름을 파악하고<br />
+              고효율 산업군 발굴에 활용할 수 있습니다.
             </>
-          )}
-        </div>
-      </header>
-
-      {/* 메인 콘텐츠 */}
-      <main className="max-w-5xl mx-auto py-12 px-6 space-y-10">
-        {/* 생산지수 요약 */}
-        <section className="bg-white p-6 rounded-2xl shadow-md">
-          <h2 className="text-lg font-semibold mb-2">📌 제조업 생산지수 요약</h2>
-          <p>🗓️ 2024년 6월 생산지수: <strong>105.7 (지수)</strong></p>
-          <p>🔼 전월 대비 변화: <strong>+2.4 (지수)</strong></p>
-        </section>
-
-        {/* 인사이트 메시지 */}
-        <section className="bg-white p-6 rounded-2xl shadow-md">
-          <h2 className="text-lg font-semibold mb-2">💡 주요 인사이트</h2>
-          <p>6월 생산지수, 전력사용량 증가로 상승세 유지</p>
-        </section>
-
-        {/* 버튼 영역 */}
-        <section className="flex justify-center gap-6">
-          <button
-            onClick={() => navigate('/industry')}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
-          >
-            업종별 분석
-          </button>
-          <button
-            onClick={() => navigate('/region')}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
-          >
-            지역별 분석
-          </button>
-        </section>
-      </main>
-
-      {/* 푸터 */}
-      <footer className="text-center py-6 text-sm text-gray-500 bg-white border-t">
-        ⓒ 2025 제조업 예측 서비스. 모든 권리 보유.
-      </footer>
-    </div>
+          }
+          detail="지역 특화 산업/정책 수립 지원용 분석 리포트 제공"
+          buttonText="자세히 보기 →"
+          link="/region"
+          graphContent={
+            <div style={{ width: "100%", height: "100%" }}>
+              <h3>지역 순위 TOP 5</h3>
+              <ol>
+                {topRegionsMock.map((region, i) => (
+                  <li key={i}>{region.name}: {region.index}</li>
+                ))}
+              </ol>
+            </div>
+          }
+        />
+      </section>
+    </>
   );
-}
+};
+
+export default Home;

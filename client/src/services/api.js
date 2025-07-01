@@ -38,6 +38,18 @@ api.interceptors.response.use(
   }
 );
 
+// 백엔드 연결 시 사용 예정
+// 현재 임시데이터로 테스트 진행중으로 주석 처리
+// 차후 프론트 연결 시 주석 해제 필요
+// export async function fetchForecastData() {
+//   const res = await fetch(`${process.env.REACT_APP_API_URL}/api/forecast`);
+//   return res.json();
+// }
+// export async function fetchTopRegions() {
+//   const res = await fetch(`${process.env.REACT_APP_API_URL}/api/regions/top`);
+//   return res.json();
+// }
+
 // -----------------------------
 // 🔐 Auth API
 // -----------------------------
