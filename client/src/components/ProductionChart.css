@@ -9,3 +9,15 @@
   padding: 16px;
 }
 
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0 10px;
+  color: #222;
+}
+.nav-button:hover {
+  font-weight: bold;
+}

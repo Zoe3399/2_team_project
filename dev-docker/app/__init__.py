@@ -1,6 +1,7 @@
 from flask import Flask  # Flask 웹 프레임워크 임포트
 from dotenv import load_dotenv  # .env 파일 환경변수 로더
 import os  # 운영체제 환경변수 제어용
+from app.routes.auth import auth_bp  # 사용자 인증 블루프린트
 
 def create_app():
     # .env 파일에서 환경변수 불러오기 (.env의 DB 정보가 시스템 환경변수로 등록됨)
@@ -31,6 +32,9 @@ def create_app():
     # models/user.py에서 정의한 db 객체(=SQLAlchemy)와 Flask 앱 연결
     from .models.user import db
     db.init_app(app)
+
+    # 사용자 인증 블루프린트 등록
+    app.register_blueprint(auth_bp)
 
     # 설정이 완료된 Flask 앱 객체 반환
     return app
