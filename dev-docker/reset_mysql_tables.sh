@@ -5,7 +5,7 @@ CONTAINER_NAME="app-db-1"
 MYSQL_USER="user"
 MYSQL_PASSWORD="uS3r_p@ss_2024"
 DB_NAME="prod_predict"
-SCHEMA_FILE="./app/schema.sql"
+SCHEMA_FILE="./dev-docker/schema.sql"
 
 # 함수: 사용자에게 yes/no 입력 받기
 ask_confirmation() {
@@ -31,15 +31,15 @@ if [ $check_tables -gt 1 ]; then
   echo -e "\n🗑️ 기존 테이블 삭제 중..."
   docker exec -i $CONTAINER_NAME mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -D $DB_NAME <<EOF
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS 
-  news_insights,
-  news_articles,
-  insight_messages,
-  favorites,
-  forecast_results,
-  region_data,
-  regions,
-  users;
+SET @tables = (
+  SELECT GROUP_CONCAT(table_name)
+  FROM information_schema.tables 
+  WHERE table_schema = '${DB_NAME}'
+);
+SET @drop_stmt = CONCAT('DROP TABLE IF EXISTS ', @tables);
+PREPARE stmt FROM @drop_stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 SET FOREIGN_KEY_CHECKS = 1;
 EOF
 fi

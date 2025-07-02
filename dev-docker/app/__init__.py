@@ -1,4 +1,5 @@
 from flask import Flask  # Flask 웹 프레임워크 임포트
+from flask_cors import CORS
 from dotenv import load_dotenv  # .env 파일 환경변수 로더
 import os  # 운영체제 환경변수 제어용
 from app.routes.auth import auth_bp  # 사용자 인증 블루프린트
@@ -9,6 +10,7 @@ def create_app():
 
     # Flask 애플리케이션 인스턴스 생성
     app = Flask(__name__)
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     # SQLAlchemy 데이터베이스 접속 URI를 환경변수로부터 구성 (필수)
     # 예시: mysql+pymysql://user:password@db:3306/데이터베이스명

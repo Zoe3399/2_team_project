@@ -1,7 +1,10 @@
-// src/components/ui/button.jsx
-import React from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-export function Button({ children, ...props }) {
+type ButtonProps = {
+  children: ReactNode;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+export function Button({ children, ...props }: ButtonProps) {
   return (
     <button
       style={{

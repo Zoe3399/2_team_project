@@ -1,5 +1,4 @@
 // 📁 src/components/ProductionChart.jsx
-import React from "react";
 import {
   LineChart,
   Line,
@@ -39,7 +38,7 @@ export default function ProductionChart() {
             <YAxis domain={[100, 120]} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(value) => value?.toFixed?.(1)} />
 
-            {/* ✅ Legend 스타일 수정 */}
+            {/* Legend 스타일 수정 */}
             <Legend
               verticalAlign="top"
               height={36}

@@ -1,28 +1,34 @@
-// React 기본 및 컴포넌트 임포트
+// 필수 라이브러리 및 주요 컴포넌트 불러오기
 import React, { useEffect, useState } from "react";
-import Header from "@/components/Header";
-import Banner from "@/components/Banner"; // 배너 컴포넌트
-import Card from "@/components/ui/Card";
-import ProductionChart from "@/components/ProductionChart"; // 예측 차트 컴포넌트
+import type { FC } from "react";
 
-// 추후 API 연동 시 사용될 import (현재는 mock 사용)
-// import { fetchTopRegions } from "@/services/api";
-import { topRegionsMock } from "@/mock/forecastMockData";
+// 주요 컴포넌트
+import Banner from "../components/Banner";
+import Card from "../components/ui/Card";
+import ProductionChart from "../components/ProductionChart";
 
-export default function Home() {
-  const [topRegions, setTopRegions] = useState([]);
+const Home: FC = () => {
+  const [topRegions, setTopRegions] = useState<{ name: string; index: number }[]>([]);
 
   useEffect(() => {
-    // 실제 API 연동 시 사용
-    // fetchTopRegions().then(setTopRegions);
-    setTopRegions(topRegionsMock);
+    // 실제 API에서 지역별 TOP 5 데이터 불러오기
+    const fetchTopRegions = async () => {
+      try {
+        // 실제 API 엔드포인트로 요청
+        const response = await fetch("/api/region/top");
+        const data = await response.json();
+        setTopRegions(data);
+      } catch (error) {
+        // 에러 발생 시 콘솔에 출력
+        console.error("지역 데이터 불러오기 실패:", error);
+      }
+    };
+
+    fetchTopRegions();
   }, []);
 
   return (
     <>
-      {/* 상단 헤더 */}
-      <Header />
-
       {/* 배너 영역 */}
       <section className="title-section">
         <Banner />
@@ -45,7 +51,7 @@ export default function Home() {
           detail="예측 결과 기반 전략 수립을 위한 인사이트 제공"
           buttonText="자세히 보기 →"
           link="/forecast"
-          graphContent={<ProductionChart />} // ✅ 차트 컴포넌트만 삽입
+          graphContent={<ProductionChart />} // 차트 컴포넌트만 삽입
         />
 
         {/* 카드 2: 지역 순위 */}
@@ -76,4 +82,6 @@ export default function Home() {
       </section>
     </>
   );
-}
+};
+
+export default Home;

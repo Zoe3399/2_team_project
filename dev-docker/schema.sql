@@ -1,11 +1,27 @@
+-- [참고] 이 파일은 dev-docker/reset_mysql_tables.sh에서 참조됩니다.
+-- 실행 위치 기준: ./dev-docker/schema.sql
+-- 기존 테이블 삭제 (존재할 경우)
+DROP TABLE IF EXISTS 
+  password_reset,
+  email_verification,
+  insight_messages,
+  favorites,
+  forecast_results,
+  region_data,
+  regions,
+  users;
+
 -- 사용자 정보 테이블
 CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,                      -- 사용자 고유 ID
-  email VARCHAR(100) UNIQUE NOT NULL,                     -- 사용자 이메일 (로그인용, 중복 불가)
-  password_hash VARCHAR(255) NOT NULL,                    -- 암호화된 비밀번호
-  is_verified BOOLEAN DEFAULT FALSE,                      -- 이메일 인증 여부
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,          -- 가입일시
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- 정보 수정일시
+  id INT AUTO_INCREMENT PRIMARY KEY,                       -- 사용자 고유 ID
+  email VARCHAR(100) UNIQUE,                               -- 사용자 이메일 (이메일 로그인만 값 존재, 소셜 회원은 NULL)
+  password_hash VARCHAR(255),                              -- 암호화된 비밀번호 (이메일 회원만 값 존재)
+  is_verified BOOLEAN DEFAULT FALSE,                       -- 이메일 인증 여부 (이메일 회원만 해당)
+  provider VARCHAR(20),                                    -- 가입 방식(local, kakao 등)
+  social_id VARCHAR(50),                                   -- 소셜 로그인 고유 ID(카카오 id 등, local 회원은 NULL)
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,           -- 가입일시
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 정보 수정일시
+  UNIQUE KEY uk_provider_social (provider, social_id)      -- provider+social_id 조합 유일(소셜회원 중복가입 방지)
 );
 
 -- 지역 목록 테이블
@@ -71,6 +87,18 @@ CREATE TABLE email_verification (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,                      -- 코드 생성 일시
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE       -- 사용자와 연동, 사용자 삭제 시 함께 삭제
 );
+
+-- 비밀번호 재설정 토큰 테이블: 비밀번호 재설정 요청 시 발급된 토큰 관리
+CREATE TABLE password_reset (
+  user_id INT PRIMARY KEY,                                           -- 사용자 ID (참조: users.id)
+  token VARCHAR(64) NOT NULL,                                        -- 비밀번호 재설정 토큰
+  expires_at DATETIME NOT NULL,                                      -- 토큰 만료 일시
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,                     -- 토큰 생성 일시
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE      -- 사용자 삭제 시 함께 삭제
+);
+
+-- 인증 코드 만료 인덱스: 만료 기준 빠른 조회를 위한 인덱스
+CREATE INDEX idx_email_verification_expires ON email_verification (expires_at);
 
 -- 인덱스 최적화 쿼리 추가
 CREATE UNIQUE INDEX idx_region_date ON region_data (region_id, date);               -- 중복 데이터 방지

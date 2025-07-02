@@ -1,8 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./Card.css";
 
-export default function Card({ title, description, detail, buttonText, link, graphContent }) {
+// props 타입 정의
+interface CardProps {
+  title: string;
+  description: React.ReactNode;
+  detail: string;
+  buttonText: string;
+  link: string;
+  graphContent: React.ReactNode;
+}
+
+export default function Card({ title, description, detail, buttonText, link, graphContent }: CardProps) {
   return (
     <div className="card">
       <div className="card-content">
@@ -22,12 +31,3 @@ export default function Card({ title, description, detail, buttonText, link, gra
     </div>
   );
 }
-
-Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.node.isRequired,
-  detail: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
-  graphContent: PropTypes.node.isRequired,
-};

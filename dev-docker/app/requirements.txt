@@ -5,7 +5,12 @@ pymysql==1.1.0                # MySQL 연동용 드라이버 (SQLAlchemy에서 �
 sqlalchemy==2.0.30            # ORM 라이브러리
 flask_sqlalchemy==3.1.1       # Flask와 SQLAlchemy 통합
 python-dotenv==1.0.1          # .env 환경 변수 로더
+requests                  # 카카오 로그인 등 외부 API 호출에 필요
+pyjwt                     # JWT 인증 토큰 발급/검증에 필요
 
 # (선택) 테스트/정적 분석 도구
 # pytest==7.4.0                # 유닛 테스트 프레임워크
 # black==24.3.0                # 코드 포매터
+
+# (선택) 이메일 유효성 엄격 검증이 필요하다면 아래 패키지도 추천
+# email-validator        # 이메일 정확 검증 (선택사항)
