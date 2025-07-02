@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
 import ResetPw from './pages/ResetPw';
 import RegionPage from './pages/RegionPage';
 import RegionDetail from './pages/RegionDetail';
@@ -17,8 +15,6 @@ function App() {
         <Route path="/" element={<Home />} />
 
         {/* 인증 */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
         <Route path="/reset" element={<ResetPw />} />
 
         {/* 분석 */}

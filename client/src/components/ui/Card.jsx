@@ -6,7 +6,7 @@ export default function Card({ title, description, detail, buttonText, link, gra
   return (
     <div className="card">
       <div className="card-content">
-        {/* ✅ Title 추가 */}
+        {/* Title 추가 */}
         <h2 className="card-title">{title}</h2>
 
         <div className="card-body">
