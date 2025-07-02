@@ -63,6 +63,15 @@ CREATE TABLE insight_messages (
   FOREIGN KEY (region_id) REFERENCES regions(id)          -- 지역 참조키
 );
 
+-- 이메일 인증 코드 테이블: 사용자에게 발송된 인증 코드를 저장
+CREATE TABLE email_verification (
+  user_id INT PRIMARY KEY,                                            -- 사용자 ID (참조: users.id)
+  code VARCHAR(6) NOT NULL,                                           -- 6자리 인증 코드
+  expires_at DATETIME NOT NULL,                                       -- 인증 코드 만료 일시
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,                      -- 코드 생성 일시
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE       -- 사용자와 연동, 사용자 삭제 시 함께 삭제
+);
+
 -- 인덱스 최적화 쿼리 추가
 CREATE UNIQUE INDEX idx_region_date ON region_data (region_id, date);               -- 중복 데이터 방지
 CREATE UNIQUE INDEX idx_forecast_region_date ON forecast_results (region_id, forecast_date);  -- 예측 데이터 중복 방지

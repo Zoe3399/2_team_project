@@ -68,6 +68,14 @@
   font-size: 0.95rem;
 }
 
+.login-form input[type="checkbox"] {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  border: none;
+  appearance: auto;
+}
+
 .submit-button {
   width: 100%;
   padding: 0.65rem;
@@ -88,7 +96,7 @@
 
 /* 회원가입 안내 문구 */
 .signup-guide {
-  margin-top: 1.5rem;
+  margin: 0.5rem 0;
   text-align: center;
   font-size: 0.9rem;
 }
@@ -104,19 +112,18 @@
 .checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   margin: 20px 0;
+  width: 100%;
 }
 
 .checkbox {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 8px;
-  font-size: 14px;
-  color: #333;
   cursor: pointer;
-  line-height: 1.4;
-  flex-wrap: wrap;
+  font-size: 14px;
 }
 
 .checkbox input {
@@ -125,13 +132,34 @@
 }
 
 .checkbox span {
-  flex: 1;
   word-break: keep-all;
 }
 .agreement-detail {
-  font-size: 12px;
+  font-size: 13px;
   color: #555;
-  margin: 4px 0 12px 24px;
-  padding-left: 0;
-  list-style-type: disc;
+  margin: 8px 0 8px 28px;
+  line-height: 1.4;
+}
+
+/* 이메일 인증 모달: 입력 필드 */
+.login-form-input {
+  width: 100%;
+  padding: 0.65rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+/* 인증 버튼 그룹 */
+.auth-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+/* 인증 버튼: 균등 분할 */
+.auth-actions .submit-button {
+  width: auto;
+  flex: 1;
 }
