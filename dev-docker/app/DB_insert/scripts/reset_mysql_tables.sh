@@ -7,12 +7,12 @@ DB_NAME="prod_predict"
 SCHEMA_FILE="/app/DB_insert/scripts/schema.sql"
 
 # 테이블 존재 여부 확인 쿼리 (기존 방식은 docker exec 사용 -> 컨테이너 내 실행으로 수정)
-check_tables=$(mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -D $DB_NAME -e "SHOW TABLES;" | wc -l)
+check_tables=$(mysql -h db -u $MYSQL_USER -p$MYSQL_PASSWORD -D $DB_NAME -e "SHOW TABLES;" | wc -l)
 
 # 테이블이 존재하면 삭제
 if [ $check_tables -gt 1 ]; then
   echo -e "\n🗑️ 기존 테이블 삭제 중..."
-  mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -D $DB_NAME <<EOF
+  mysql -h db -u $MYSQL_USER -p$MYSQL_PASSWORD -D $DB_NAME <<EOF
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS 
   news_insights,
@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS
   region_data,
   regions,
   users,
+  download_logs,
   email_verification,
   password_reset;
 SET FOREIGN_KEY_CHECKS = 1;
@@ -31,7 +32,7 @@ fi
 
 # 새 테이블 생성
 echo -e "\n 스키마 적용 중..."
-mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $DB_NAME < $SCHEMA_FILE
+mysql -h db -u $MYSQL_USER -p$MYSQL_PASSWORD $DB_NAME < $SCHEMA_FILE
 
 echo -e "\n 완료: 테이블이 성공적으로 생성되었습니다!"
 

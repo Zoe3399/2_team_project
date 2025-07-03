@@ -19,7 +19,7 @@ services:
       - "3306:3306"                             # 호스트 ↔ 컨테이너 포트 매핑
     volumes:
       - mysql_data:/var/lib/mysql               # DB 데이터 영속성 저장
-      - ./DB_insert/scripts/schema.sql:/docker-entrypoint-initdb.d/init.sql  # 초기 SQL 파일 마운트
+      - ./DB_insert/scripts/:/docker-entrypoint-initdb.d/  # 초기 SQL 디렉토리 전체 마운트
     healthcheck:                                # DB 헬스체크: Flask가 DB 준비 후 실행되도록
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -37,7 +37,8 @@ services:
       - .env                                     # .env 파일에서 환경변수 로드
     volumes:
       - .:/app                                   # 로컬 코드 핫리로드 가능
-    entrypoint: ["/bin/bash", "-c", "./DB_insert/scripts/wait-for-mysql.sh db 3306 -- ./DB_insert/scripts/reset_mysql_tables.sh && flask --app app.py run --host=0.0.0.0"]
+      - ./DB_insert/scripts/wait-for-mysql.sh:/app/wait-for-mysql.sh
+    entrypoint: ["/bin/bash", "-c", "./wait-for-mysql.sh db 3306 -- ./DB_insert/scripts/reset_mysql_tables.sh && flask --app app.py run --host=0.0.0.0"]
     working_dir: /app                            # Flask 앱 기준 디렉토리
 
 # 공유 볼륨 정의 (데이터 유지 목적)

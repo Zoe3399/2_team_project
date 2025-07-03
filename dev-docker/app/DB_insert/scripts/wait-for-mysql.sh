@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # 사용법: ./wait-for-mysql.sh <host> <port> -- <your_command>
 host="$1"
@@ -11,5 +11,5 @@ until nc -z "$host" "$port"; do
   sleep 2
 done
 
-echo "✅ MySQL is up! Running command..."
+echo "MySQL is up! Running command..."
 exec "$@"

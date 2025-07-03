@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 # DB 연결 정보
 DB_USER = "user"
 DB_PASSWORD = quote_plus("uS3r_p@ss_2024")
-DB_HOST = "localhost"
+DB_HOST = "db"
 DB_PORT = "3306"
 DB_NAME = "prod_predict"
 
