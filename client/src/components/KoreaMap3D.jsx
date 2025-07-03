@@ -45,7 +45,10 @@ function KoreaMapTexture({ selectedCity, setSelectedCity, setHoveredCity, hovere
           <mesh
             onPointerOver={() => setHoveredCity(city)}
             onPointerOut={() => setHoveredCity(null)}
-            onClick={() => setSelectedCity(city)}
+            onClick={() => {
+              setSelectedCity(city);
+              setHoveredCity(null);
+            }}
           >
             <sphereGeometry args={[0.03, 16, 16]} />
             <meshPhongMaterial
@@ -84,7 +87,7 @@ const KoreaMap3D = () => {
     const city = cityOrder[cityIndex - 1];
     const isSame = selectedCity === city;
     setSelectedCity(isSame ? null : city);
-    setShowOverlay(!isSame);
+    setShowOverlay(!isSame ? true : false);
   };
 
   return (

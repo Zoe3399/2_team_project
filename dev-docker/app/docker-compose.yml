@@ -36,8 +36,8 @@ services:
     env_file:
       - .env                                     # .env 파일에서 환경변수 로드
     volumes:
-      - ../app:/app                              # 로컬 코드 핫리로드 가능
-    command: flask --app app.py run --host=0.0.0.0  # Flask 앱 실행 명령어
+      - .:/app                                   # 로컬 코드 핫리로드 가능
+    entrypoint: ["/bin/bash", "-c", "/app/reset_mysql_tables.sh && flask --app app.py run --host=0.0.0.0"]
     working_dir: /app                            # Flask 앱 기준 디렉토리
 
 # 공유 볼륨 정의 (데이터 유지 목적)
