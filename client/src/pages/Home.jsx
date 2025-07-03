@@ -72,6 +72,10 @@ export default function Home() {
                 score: reg.index,
                 color: idx === 0 ? 0xffd700 : idx === 1 ? 0xc0c0c0 : idx === 2 ? 0xcd7f32 : 0xff6b6b
               }))}
+              onRegionClick={(regionName) => {
+                const element = document.querySelector(`[data-region-name="${regionName}"]`);
+                if (element) element.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
             />
           }
         />

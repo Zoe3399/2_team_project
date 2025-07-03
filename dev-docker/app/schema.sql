@@ -1,15 +1,15 @@
 -- [참고] 이 파일은 dev-docker/reset_mysql_tables.sh에서 참조됩니다.
 -- 실행 위치 기준: ./dev-docker/schema.sql
 -- 기존 테이블 삭제 (존재할 경우)
-DROP TABLE IF EXISTS 
-  password_reset,
-  email_verification,
-  insight_messages,
-  favorites,
-  forecast_results,
-  region_data,
-  regions,
-  users;
+-- DROP TABLE IF EXISTS
+--   password_reset,
+--   email_verification,
+--   insight_messages,
+--   favorites,
+--   forecast_results,
+--   region_data,
+--   regions,
+--   users;
 
 -- 사용자 정보 테이블
 CREATE TABLE users (
