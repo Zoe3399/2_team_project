@@ -26,7 +26,7 @@ const cityPositions = {
 // 도시 순서 배열 (순위별)
 const cityOrder = ['서울', '부산', '대구', '인천', '광주'];
 
-function KoreaMapTexture({ selectedCity, setHoveredCity, hoveredCity }) {
+function KoreaMapTexture({ selectedCity, setSelectedCity, setHoveredCity, hoveredCity, showOverlay }) {
   const texture = useLoader(THREE.TextureLoader, koreaMapImg);
   // 지도 평면의 크기(비율) 조정
   const width = 1.2;
@@ -45,6 +45,7 @@ function KoreaMapTexture({ selectedCity, setHoveredCity, hoveredCity }) {
           <mesh
             onPointerOver={() => setHoveredCity(city)}
             onPointerOut={() => setHoveredCity(null)}
+            onClick={() => setSelectedCity(city)}
           >
             <sphereGeometry args={[0.03, 16, 16]} />
             <meshPhongMaterial
@@ -59,6 +60,14 @@ function KoreaMapTexture({ selectedCity, setHoveredCity, hoveredCity }) {
               opacity={0.7}
             />
           </mesh>
+          {showOverlay && selectedCity === city && (
+            <Html center>
+              <div className="map-center-label">
+                <div className="score">{productivityData[city]}</div>
+                <div className="city-name">{city}</div>
+              </div>
+            </Html>
+          )}
         </group>
       ))}
     </group>
@@ -69,10 +78,13 @@ function KoreaMapTexture({ selectedCity, setHoveredCity, hoveredCity }) {
 const KoreaMap3D = () => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [hoveredCity, setHoveredCity] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const handleCitySelect = (cityIndex) => {
     const city = cityOrder[cityIndex - 1];
-    setSelectedCity(selectedCity === city ? null : city);
+    const isSame = selectedCity === city;
+    setSelectedCity(isSame ? null : city);
+    setShowOverlay(!isSame);
   };
 
   return (
@@ -83,8 +95,10 @@ const KoreaMap3D = () => {
         <directionalLight position={[2, 2, 2]} intensity={0.7} />
         <KoreaMapTexture
           selectedCity={selectedCity}
+          setSelectedCity={setSelectedCity}
           setHoveredCity={setHoveredCity}
           hoveredCity={hoveredCity}
+          showOverlay={showOverlay}
         />
       </Canvas>
       <div className="city-buttons">
@@ -104,12 +118,6 @@ const KoreaMap3D = () => {
           );
         })}
       </div>
-      {selectedCity && (
-        <div className="center-score">
-          <div className="score-value">{productivityData[selectedCity]}</div>
-          <div className="score-city">{selectedCity}</div>
-        </div>
-      )}
       <div className="map-overlay">
         <h3>지역별 생산성 순위</h3>
         <div className="region-list">
