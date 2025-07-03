@@ -4,7 +4,7 @@
 MYSQL_USER="user"
 MYSQL_PASSWORD="uS3r_p@ss_2024"
 DB_NAME="prod_predict"
-SCHEMA_FILE="./schema.sql"
+SCHEMA_FILE="/app/DB_insert/scripts/schema.sql"
 
 # 테이블 존재 여부 확인 쿼리 (기존 방식은 docker exec 사용 -> 컨테이너 내 실행으로 수정)
 check_tables=$(mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -D $DB_NAME -e "SHOW TABLES;" | wc -l)
@@ -37,7 +37,7 @@ echo -e "\n 완료: 테이블이 성공적으로 생성되었습니다!"
 
 # 데이터 insert 스크립트 실행 (명시적으로 직접 호출)
 echo -e "\n예측 및 지역 데이터 삽입 중..."
-python3 /app/DB_insert/scripts/insert_regions.py
-python3 /app/DB_insert/scripts/insert_region_data.py
-python3 /app/DB_insert/scripts/insert_forecast_results.py
+python3 DB_insert/scripts/insert_regions.py
+python3 DB_insert/scripts/insert_region_data.py
+python3 DB_insert/scripts/insert_forecast_results.py
 echo -e "\n데이터 삽입 완료!"

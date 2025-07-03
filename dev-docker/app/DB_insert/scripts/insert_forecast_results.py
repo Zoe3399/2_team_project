@@ -20,7 +20,7 @@ region_name_to_id = {
 }
 
 # CSV 파일 읽기
-df = pd.read_csv("../data/predicted_2025_567_csv.csv")
+df = pd.read_csv("DB_insert/data/predicted_2025_567_csv.csv")
 
 # 컬럼명 확인용 출력 추가 (디버깅용)
 print("컬럼명 확인:", df.columns)

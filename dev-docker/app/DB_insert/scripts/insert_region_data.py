@@ -36,7 +36,7 @@ region_name_to_id = {
 }
 
 # CSV 읽기
-df = pd.read_csv("../data/option1_merged_exclude_sejong.csv")
+df = pd.read_csv("DB_insert/data/option1_merged_exclude_sejong.csv")
 
 # 컬럼명 변경 및 선택
 df = df.rename(columns={
