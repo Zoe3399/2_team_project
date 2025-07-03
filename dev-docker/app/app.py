@@ -1,14 +1,32 @@
-# app 패키지에서 Flask 애플리케이션을 생성하는 create_app 함수 임포트
-# 이 함수는 앱 설정, 확장기능 초기화, 블루프린트 등록 등을 담당
+from flask import Flask
+from flask_cors import CORS
+from api.production.summary import summary_bp
+from app.models.user import db          # DB 객체
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('app.config.Config')
+    CORS(app, supports_credentials=True, origins=['http://localhost:5173'])
+    db.init_app(app)
+    app.register_blueprint(summary_bp, url_prefix='/api/production')
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        return {"success": False, "message": "서버 내부 오류"}, 500
+
+    @app.after_request
+    def after_request(response):
+        if not response.headers.get('Access-Control-Allow-Origin'):
+            response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+            response.headers.add('Access-Control-Allow-Credentials', 'true')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+            response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+        if response.status_code == 405 and response.request.method == 'OPTIONS':
+            response.status_code = 200
+        return response
+
+    return app
+
+# 마지막에 위치시킴
 from app import create_app
-import os  # 운영체제 환경변수 접근용
-
-# create_app() 함수 호출하여 Flask 애플리케이션 인스턴스 생성
 app = create_app()
-
-# 이 파일이 직접 실행될 경우 (예: python app.py), Flask 앱을 실행
-# 개발환경 여부는 .env의 FLASK_ENV 값으로 제어
-if __name__ == '__main__':
-    debug_mode = os.getenv("FLASK_ENV") == "development"  # 개발환경 여부 판단
-    port = int(os.getenv("FLASK_PORT", 5000))  # .env에서 포트 지정 가능 (기본 5000)
-    app.run(host="0.0.0.0", port=port, debug=debug_mode)

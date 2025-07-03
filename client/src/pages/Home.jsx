@@ -47,7 +47,7 @@ export default function Home() {
           detail="예측 결과 기반 전략 수립을 위한 인사이트 제공"
           buttonText="자세히 보기 →"
           link="/forecast"
-          graphContent={<ProductionChart />} // ✅ 차트 컴포넌트만 삽입
+          graphContent={<ProductionChart />} // 차트 컴포넌트만 삽입
         />
 
          {/* 카드 2: 지역 순위 */}

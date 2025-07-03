@@ -19,3 +19,4 @@ COPY . .
 
 # Flask 실행 명령 지정
 ENTRYPOINT ["sh", "-c", "./DB_insert/scripts/reset_mysql_tables.sh && flask run --host=0.0.0.0"]
+ENV PYTHONPATH=/app

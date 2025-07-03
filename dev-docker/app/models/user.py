@@ -40,3 +40,24 @@ class User(db.Model):
         user = User(email=data.get("email"))
         user.set_password(data.get("password"))
         return user
+    
+
+class RegionData(db.Model):
+    __tablename__ = 'region_data'
+    id = db.Column(db.Integer, primary_key=True)
+    region_id = db.Column(db.Integer)
+    date = db.Column(db.Date)
+    production_index = db.Column(db.Float)
+    power_usage = db.Column(db.Float)
+    export_amount = db.Column(db.Float)
+    temperature_avg = db.Column(db.Float)
+    precipitation = db.Column(db.Float)
+
+class ForecastResult(db.Model):
+    __tablename__ = 'forecast_results'
+    id = db.Column(db.Integer, primary_key=True)
+    region_id = db.Column(db.Integer)
+    forecast_date = db.Column(db.Date)
+    predicted_index = db.Column(db.Float)
+    confidence = db.Column(db.Float)
+    model_version = db.Column(db.String(20))

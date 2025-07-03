@@ -11,21 +11,33 @@ import {
   Legend,
 } from "recharts";
 
+import { useEffect, useState } from "react";
+
 import "./ProductionChart.css"; // 스타일 파일 포함
 
-// 샘플 테스트 데이터 (현재월: 2025-07 기준)
-const data = [
-  { date: "2025-04", actual: 112.3, predicted: 111.5 },
-  { date: "2025-05", actual: 113.1, predicted: 112.0 },
-  { date: "2025-06", actual: 114.0, predicted: 113.2 },
-  { date: "2025-07", actual: 114.3, predicted: 114.3 },
-  { date: "2025-08", predicted: 115.1 },
-  { date: "2025-09", predicted: 116.3 },
-  { date: "2025-10", predicted: 117.5 },
-];
-
 export default function ProductionChart() {
-  const currentMonth = "2025-07";
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentMonth, setCurrentMonth] = useState("");
+
+  useEffect(() => {
+    // 백엔드 API에서 실제 + 예측 생산지수 데이터 불러오기
+    fetch("http://localhost:5001/api/production/summary")
+      .then((res) => res.json())
+      .then((result) => {
+        setData(result.data || []);
+        if (result.data?.length) {
+          setCurrentMonth(result.data.find(d => d.actual !== undefined)?.date || "");
+        }
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+        setData([]);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div>데이터 로딩 중...</div>;
 
   return (
     <div className="production-chart-container">
@@ -36,10 +48,10 @@ export default function ProductionChart() {
             margin={{ top: 20, bottom: 20, right: 10, left: 0 }}
           >
             <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-            <YAxis domain={[100, 120]} tick={{ fontSize: 12 }} />
+            <YAxis domain={['auto', 'auto']} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(value) => value?.toFixed?.(1)} />
 
-            {/* ✅ Legend 스타일 수정 */}
+            {/* Legend 스타일 수정 */}
             <Legend
               verticalAlign="top"
               height={36}

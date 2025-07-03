@@ -44,3 +44,4 @@ services:
 # 공유 볼륨 정의 (데이터 유지 목적)
 volumes:
   mysql_data:
+

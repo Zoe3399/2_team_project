@@ -27,6 +27,10 @@ export default function SignupModal({ onClose, setShowLogin }) {
 
   // 카카오 회원가입 처리 (추후 OAuth 연동)
   const handleKakaoSignup = () => {
+    // 방어 코드: 약관 미동의 시 함수 종료
+    if (!agreeTerms || !agreePrivacy) {
+      return;
+    }
     console.log("카카오 회원가입 시작");
   };
 
@@ -46,32 +50,19 @@ export default function SignupModal({ onClose, setShowLogin }) {
       return;
     }
     try {
-      // 1) 회원가입 API 호출
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message || "회원가입에 실패했습니다.");
-        return;
-      }
-
-      // 2) 인증 코드 발송 API 호출
-      const codeRes = await fetch("/api/auth/send-code", {
+      const res = await fetch("http://localhost:5001/api/auth/request-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      if (!codeRes.ok) {
-        setError("인증번호 발송에 실패했습니다.");
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message || "인증 요청에 실패했습니다.");
         return;
       }
-
-      // 3) 인증 화면으로 전환
+      // 인증 화면으로 전환
       setShowVerifyForm(true);
-      setVerifyMessage("인증번호가 전송되었습니다.");
+      setVerifyMessage("이메일로 인증번호가 전송되었습니다.");
       setIsVerifyError(false);
     } catch (err) {
       console.error(err);
@@ -86,18 +77,33 @@ export default function SignupModal({ onClose, setShowLogin }) {
       return;
     }
     try {
-      const res = await fetch("/api/auth/verify-code", {
+      const verifyRes = await fetch("http://localhost:5001/api/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code }),
       });
-      if (res.ok) {
-        window.alert("인증이 완료되었습니다.");
-        onClose();
-      } else {
-        setVerifyMessage("이메일 인증이 실패하였습니다. 다시 시도해주세요.");
+      const verifyData = await verifyRes.json();
+      if (!verifyRes.ok) {
+        setVerifyMessage(verifyData.message || "이메일 인증이 실패하였습니다.");
         setIsVerifyError(true);
+        return;
       }
+
+      // 인증 성공 시 회원가입 처리
+      const registerRes = await fetch("http://localhost:5001/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const registerData = await registerRes.json();
+      if (!registerRes.ok) {
+        setVerifyMessage(registerData.message || "회원가입에 실패하였습니다.");
+        setIsVerifyError(true);
+        return;
+      }
+
+      window.alert("인증이 완료되고 회원가입이 완료되었습니다.");
+      onClose();
     } catch {
       setVerifyMessage("서버 오류가 발생했습니다.");
       setIsVerifyError(true);
@@ -106,15 +112,22 @@ export default function SignupModal({ onClose, setShowLogin }) {
 
   const handleResend = async () => {
     try {
-      await fetch("/api/auth/resend-code", {
+      const res = await fetch("http://localhost:5001/api/auth/resend-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      setVerifyMessage("인증번호를 다시 발송했습니다.");
-      setIsVerifyError(false);
-    } catch {
-      setVerifyMessage("재전송에 실패했습니다.");
+      const data = await res.json();
+      if (res.ok) {
+        setVerifyMessage(data.message);
+        setIsVerifyError(false);
+      } else {
+        setVerifyMessage(data.message || "인증 재전송에 실패했습니다.");
+        setIsVerifyError(true);
+      }
+    } catch (err) {
+      console.error(err);
+      setVerifyMessage("서버 오류로 인증 재전송에 실패했습니다.");
       setIsVerifyError(true);
     }
   };
