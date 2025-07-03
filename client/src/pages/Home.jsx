@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import Banner from "@/components/Banner"; // 배너 컴포넌트
 import Card from "@/components/ui/Card";
 import ProductionChart from "@/components/ProductionChart"; // 예측 차트 컴포넌트
+import KoreaMap3D from "@/components/KoreaMap3D";
+import "@/components/KoreaMap3D.css";
 
 // 추후 API 연동 시 사용될 import (현재는 mock 사용)
 // import { fetchTopRegions } from "@/services/api";
@@ -48,29 +50,29 @@ export default function Home() {
           graphContent={<ProductionChart />} // ✅ 차트 컴포넌트만 삽입
         />
 
-        {/* 카드 2: 지역 순위 */}
+         {/* 카드 2: 지역 순위 */}
         <Card
-          title="지역 순위 TOP 5 그래프"
+          title="지역 순위 TOP 5"
           description={
             <>
-              지역별 전력 사용량 기반으로 산업별 비중과 생산성을 분석합니다.
+              AI 예측 모델을 통해 산업 생산지수의 변화를 시각화하고,
               <br />
-              과거 데이터를 토대로 지역경제 흐름을 파악하고
+              전력 소비 패턴과 주요 경제 지표를 함께 보여줍니다.
               <br />
-              고효율 산업군 발굴에 활용할 수 있습니다.
+              이를 통해 산업 흐름의 전반적인 방향을 쉽게 파악할 수 있습니다
             </>
           }
           detail="지역 특화 산업/정책 수립 지원용 분석 리포트 제공"
           buttonText="자세히 보기 →"
           link="/region"
           graphContent={
-            <div className="flex flex-col items-start space-y-1 text-base font-medium text-gray-700">
-              {topRegions.slice(0, 5).map((reg, idx) => (
-                <div key={idx}>
-                  {idx + 1}위: {reg.name} | {reg.index}
-                </div>
-              ))}
-            </div>
+            <KoreaMap3D 
+              regionData={topRegions.slice(0, 5).map((reg, idx) => ({
+                name: reg.name,
+                score: reg.index,
+                color: idx === 0 ? 0xffd700 : idx === 1 ? 0xc0c0c0 : idx === 2 ? 0xcd7f32 : 0xff6b6b
+              }))}
+            />
           }
         />
       </section>
