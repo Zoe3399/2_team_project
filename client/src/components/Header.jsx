@@ -35,9 +35,10 @@ const Header = () => {
           <Link to="/region">지역분석</Link>
           <Link to="/forecast">예측 보기</Link>
           <Link to="/download">다운로드</Link>
-          <Link to="/mine">나의 분석</Link>
+          {/* <Link to="/mine">나의 분석</Link> */}
           <Link to="/faq">도움말 / FAQ</Link>
         </div>
+        
         <div className="nav-right">
           <a
             href="#"
@@ -52,10 +53,10 @@ const Header = () => {
           >회원가입</a>
           <Link to="/mypage" className="mypage">마이페이지</Link>
         </div>
+       
       </nav>
 
-      {/* 로그인 모달: isLoginOpen이 true일 때만 렌더링 */}
-      {isLoginOpen && (
+      {/* {isLoginOpen && (
         <LoginModal
           onClose={() => setIsLoginOpen(false)}
           setShowSignup={() => {
@@ -63,10 +64,9 @@ const Header = () => {
             setIsSignupOpen(true);
           }}
         />
-      )}
+      )} */}
 
-      {/* 회원가입 모달: isSignupOpen이 true일 때만 렌더링 */}
-      {isSignupOpen && (
+      {/* {isSignupOpen && (
         <SignupModal
           onClose={() => setIsSignupOpen(false)}
           setShowLogin={() => {
@@ -74,7 +74,7 @@ const Header = () => {
             setIsLoginOpen(true);
           }}
         />
-      )}
+      )} */}
     </header>
   );
 };

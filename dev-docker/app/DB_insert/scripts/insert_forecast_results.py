@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 # DB 연결 정보
 DB_USER = "user"
 DB_PASSWORD = quote_plus("uS3r_p@ss_2024")
-DB_HOST = "localhost"
+DB_HOST = "db"
 DB_PORT = "3306"
 DB_NAME = "prod_predict"
 
@@ -20,7 +20,7 @@ region_name_to_id = {
 }
 
 # CSV 파일 읽기
-df = pd.read_csv("../data/predicted_2025_567_csv.csv")
+df = pd.read_csv("DB_insert/data/predicted_2025_567_csv.csv")
 
 # 컬럼명 확인용 출력 추가 (디버깅용)
 print("컬럼명 확인:", df.columns)

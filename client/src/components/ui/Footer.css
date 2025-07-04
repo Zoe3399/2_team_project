@@ -1,0 +1,84 @@
+.footer {
+  background-color: #f2f2f2;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  border-top: 1px solid #ddd;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #007acc;
+}
+
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 24px;
+  background-color: #f2f2f2;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+  color: #555;
+}
+
+.footer-left,
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.footer-right a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-right a:hover {
+  color: #007acc;
+}
+
+.footer-right a img {
+  width: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.footer-right a[href="https://github.com/Zoe3399/2_team_project"] {
+  display: flex;
+  align-items: center;
+}
+
+.footer-right a[href="https://www.notion.so/oreumi/2-21cebaa8982b80cbaeddfb15a4c4b2c0?source=copy_link"] {
+  display: flex;
+  align-items: center;
+}
+
+.footer-note {
+  width: 100%;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin-top: 16px;
+}

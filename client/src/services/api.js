@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // 기본 axios 인스턴스 설정
 const api = axios.create({
-  baseURL: 'http://localhost:5001/api',  // 백엔드 API 서버 주소
+  baseURL: 'http://localhost:5001/api',  // 백엔드 API 서버 주소 (수정: 포트 5001로 직접 지정)
   headers: {
     'Content-Type': 'application/json'
   }
@@ -38,54 +38,48 @@ api.interceptors.response.use(
   }
 );
 
-// API 서비스 함수 정의 파일
-// (주석) 백엔드 연결 시 사용 예정
-// 현재는 임시 데이터로 테스트 중
-// 차후 프론트+백엔드 연결 시 프론트에서 주석 해제 필요
-export async function fetchForecastData() {
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/api/forecast`);
-  return res.json();
+
+// 카카오 로그인 API 호출 함수
+export async function kakaoLogin(socialId, name) {
+  const response = await api.post('/auth/kakao', { social_id: socialId, name });
+  return response.data;
 }
 
-export async function fetchTopRegions() {
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/api/regions/top`);
-  return res.json();
+// 이메일 회원가입 API
+export async function register({ email, password }) {
+  const response = await api.post('/auth/register', { email, password });
+  return response.data;
 }
 
-// -----------------------------
-// 🔐 Auth API
-// -----------------------------
-export const register = (data) => api.post('/auth/register', data);
-export const login = (data) => api.post('/auth/login', data);
-export const verifyEmail = (token) => api.get(`/auth/verify?token=${token}`);
+// 이메일 인증 API
+export async function verifyEmail({ email, code }) {
+  const response = await api.post('/auth/verify-email', { email, code });
+  return response.data;
+}
 
-// -----------------------------
-// 👤 User API
-// -----------------------------
-export const getMyInfo = () => api.get('/user/me');
-export const savePreferences = (data) => api.post('/user/preferences', data);
+// 비밀번호 재설정 토큰 요청
+export async function requestPasswordReset(email) {
+  const response = await api.post('/auth/password-reset', { email });
+  return response.data;
+}
 
-// -----------------------------
-// 📊 Data API
-// -----------------------------
-export const fetchProductionIndex = (region, industry) =>
-  api.get(`/data/production?region=${region}&industry=${industry}`);
+// 비밀번호 재설정
+export async function resetPassword({ token, new_password }) {
+  const response = await api.post('/api/auth/password-reset', { token, new_password });
+  return response.data;
+}
 
-// -----------------------------
-// 🔮 Prediction API
-// -----------------------------
-export const fetchPrediction = (region, industry) =>
-  api.get(`/predict?region=${region}&industry=${industry}`);
+// 인증 코드 재전송
+export async function resendCode(email) {
+  const response = await api.post('/auth/resend-code', { email });
+  return response.data;
+}
 
-// -----------------------------
-// 🔔 Alert API
-// -----------------------------
-export const fetchAlerts = () => api.get('/alerts');
-export const markAlertRead = (alertId) => api.post(`/alerts/${alertId}/read`);
+// 뉴스 전체 조회
+export async function fetchNewsAll() {
+  const response = await api.get('/news/all');
+  return response.data;
+}
 
-// -----------------------------
-// ⚙️ Admin API
-// -----------------------------
-export const postPredictionAdmin = (data) => api.post('/admin/predict', data);
-
+// 기본 axios 인스턴스 내보내기
 export default api;

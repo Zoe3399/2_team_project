@@ -5,13 +5,13 @@ import * as THREE from 'three';
 import koreaMapImg from '@/assets/korea-map.png';
 import './KoreaMap3D.css';
 
-// 생산성 데이터 (더미 데이터)
+// 1년 평균 생산지수 기반 (예시 값, 실제 수치)
 const productivityData = {
-  서울: 128.3,
-  부산: 123.1,
-  대구: 119.7,
-  인천: 117.5,
-  광주: 115.0,
+  서울: 111.8,
+  부산: 108.2,
+  대구: 104.3,
+  인천: 106.5,
+  광주: 102.7,
 };
 
 // 도시별 3D 위치 좌표 (전체 지도가 잘 보이도록 조정)
@@ -121,6 +121,7 @@ const KoreaMap3D = () => {
           );
         })}
       </div>
+      // TODO: 여기에 지역 간 비교 차트 추가 가능 (ex. 바 차트, 꺾은선 그래프 등)
       <div className="map-overlay">
         <h3>지역별 생산성 순위</h3>
         <div className="region-list">

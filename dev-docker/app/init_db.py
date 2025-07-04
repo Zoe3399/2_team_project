@@ -13,7 +13,7 @@ app = create_app()
 
 # Flask 앱 컨텍스트 내에서 작업 수행
 with app.app_context():
-    print("📦 데이터베이스 테이블을 생성 중입니다...")
+    print("데이터베이스 테이블을 생성 중입니다...")
     # SQLAlchemy 모델 기반으로 테이블 자동 생성 (CI/CD 미사용 시 수동 실행)
     db.create_all()  
     print("완료: 모든 테이블이 성공적으로 생성되었습니다.")  
