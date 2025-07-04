@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Legend
+  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine
 } from "recharts";
 import "./ProductionChart.css";
 
@@ -42,13 +42,14 @@ export default function ProductionChart() {
 
   return (
     <div className="production-chart-container">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-        <div style={{ fontSize: "14px", color: "#666" }}>단위: 지수 (기준=100)</div>
-        <div style={{ fontSize: "14px", color: "#444" }}>예측 정확도 (R²): 약 0.63 → 실제 변동의 63% 설명</div>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "24px", marginBottom: "12px", fontSize: "16px", color: "#444" }}>
+        <span style={{ fontWeight: "bold" }}>단위: 지수 (기준=100)</span>
+        <span style={{ color: "#4C9AFF", fontWeight: "bold" }}>∘ 실제 생산지수</span>
+        <span style={{ color: "#FF8800", fontWeight: "bold" }}>∘ 예측 생산지수</span>
       </div>
-      <div style={{ fontSize: "14px", marginBottom: "8px", color: "#666" }}>{infoMessage}</div>
+      {/* <div style={{ fontSize: "16px", marginBottom: "8px", color: "#666" }}>{infoMessage}</div> */}
       <div className="chart-box">
-        <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="100%" height={500}>
           <LineChart data={data} margin={{ top: 20, bottom: 20, right: 10, left: 0 }}>
             <XAxis
               dataKey="date"
@@ -72,11 +73,6 @@ export default function ProductionChart() {
                 const [y, m] = v.split("-");
                 return `${y}년 ${Number(m)}월`;
               }}
-            />
-            <Legend
-              verticalAlign="top"
-              height={36}
-              wrapperStyle={{ fontSize: "16px", paddingBottom: "4px" }}
             />
             {/* 4월 ReferenceLine */}
             {lastActualDate && (

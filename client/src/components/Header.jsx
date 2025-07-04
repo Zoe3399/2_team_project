@@ -38,7 +38,7 @@ const Header = () => {
           {/* <Link to="/mine">나의 분석</Link> */}
           <Link to="/faq">도움말 / FAQ</Link>
         </div>
-        {/*
+        
         <div className="nav-right">
           <a
             href="#"
@@ -53,7 +53,7 @@ const Header = () => {
           >회원가입</a>
           <Link to="/mypage" className="mypage">마이페이지</Link>
         </div>
-        */}
+       
       </nav>
 
       {/* {isLoginOpen && (

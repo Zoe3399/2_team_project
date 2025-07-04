@@ -1,0 +1,69 @@
+/* detail_Card.css - 경제지표 카드 스타일 */
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+  margin: 40px auto;
+  max-width: 100%;
+  padding: 0 20px;
+}
+
+.detail-card {
+  flex: 1 1 280px;
+  max-width: 280px;
+  min-height: 180px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+  text-align: center;
+  margin: 12px;
+}
+
+.detail-card:hover {
+  transform: translateY(-6px);
+}
+
+.detail-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.detail-card-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: #111;
+  margin: 6px 0 10px 0;
+}
+
+.detail-card-description {
+  font-size: 16px;
+  color: #555;
+  margin-top: 14px;
+  line-height: 1.75;
+}
+
+.detail-card-percentage {
+  font-size: 17px;
+  font-weight: 600;
+  color: #000;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.detail-card-insight {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  text-align: center;        /* 좌측 정렬 */
+  text-indent: 1em;        /* 들여쓰기 */
+  margin-top: 10px;
+  margin-bottom: 12px;
+  padding: 0 10px;          /* 좌우 여백 */
+  word-break: keep-all;    /* 단어 단위 줄바꿈 */
+}
