@@ -31,7 +31,7 @@ export default function Home() {
       </section>
 
       {/* 본문 카드 영역 */}
-      <section className="section p-6 space-y-8 max-w-5xl mx-auto">
+      <section className="section p-6 space-y-8 max-w-7xl mx-auto min-h-[800px]">
         {/* 카드 1: 생산지수 예측 그래프 */}
         <Card
           title="생산지수 추이 모션 그래프"
