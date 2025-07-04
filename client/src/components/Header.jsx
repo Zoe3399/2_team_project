@@ -33,7 +33,7 @@ const Header = () => {
       <nav className="nav-bar">
         <div className="nav-left">
           <Link to="/region">지역분석</Link>
-          <Link to="/forecast">예측 보기</Link>
+          <Link to="/download">예측 보기</Link>
           <Link to="/download">다운로드</Link>
           {/* <Link to="/mine">나의 분석</Link> */}
           <Link to="/faq">도움말 / FAQ</Link>

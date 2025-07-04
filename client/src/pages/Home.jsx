@@ -107,20 +107,6 @@ export default function Home() {
             />
           }
         />
-
-        <Card
-          title="데이터 다운로드"
-          description={
-            <>
-              원하는 시점 기준의 데이터를 엑셀 또는 CSV 형식으로 다운로드할 수 있습니다.
-              <br />
-              지역별, 시계열별 데이터를 선택하여 자유롭게 활용해보세요.
-            </>
-          }
-          detail="선택한 필터에 따라 사용자 맞춤형 데이터 제공"
-          buttonText="다운로드 하러 가기 →"
-          link="/download"
-        />
       </section>
       <Footer />
     </>

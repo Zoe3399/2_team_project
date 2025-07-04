@@ -65,12 +65,13 @@
   margin-right: 6px;
 }
 
-.footer-right a[href="https://github.com/Zoe3399/2_team_project"] {
+
+.footer-left a[href="https://github.com/Zoe3399/2_team_project"] {
   display: flex;
   align-items: center;
 }
 
-.footer-right a[href="https://www.notion.so/oreumi/2-21cebaa8982b80cbaeddfb15a4c4b2c0?source=copy_link"] {
+.footer-left a[href="https://www.notion.so/oreumi/2-21cebaa8982b80cbaeddfb15a4c4b2c0?source=copy_link"] {
   display: flex;
   align-items: center;
 }
